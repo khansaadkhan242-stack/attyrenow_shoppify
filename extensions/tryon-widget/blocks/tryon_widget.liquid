@@ -1,0 +1,61 @@
+<link rel="stylesheet" href="{{ 'tryon-widget.css' | asset_url }}">
+
+<div class="attyrenow-tryon" data-product-image="{{ block.settings.product.featured_image | image_url: width: 1024 }}">
+  <button type="button" class="attyrenow-tryon__open-btn">
+    {{ block.settings.button_text | default: "Try It On" }}
+  </button>
+  <p class="attyrenow-tryon__caption">See how this looks on you</p>
+
+  <div class="attyrenow-tryon__panel" hidden>
+    <div class="attyrenow-tryon__body">
+      <div class="attyrenow-tryon__header">
+        <span>Try It On</span>
+        <button type="button" class="attyrenow-tryon__close-btn" aria-label="Close">&times;</button>
+      </div>
+
+      <label class="attyrenow-tryon__upload">
+        <input type="file" accept="image/*" class="attyrenow-tryon__file-input" hidden>
+        <span class="attyrenow-tryon__upload-icon">👤</span>
+        <span class="attyrenow-tryon__upload-title">Upload your photo</span>
+        <span class="attyrenow-tryon__upload-label">Drag &amp; drop or click to upload</span>
+      </label>
+
+      <ul class="attyrenow-tryon__requirements">
+        <li>✓ Full body</li>
+        <li>✓ Good lighting</li>
+        <li>✓ Just you</li>
+        <li>✓ Fitted clothes</li>
+      </ul>
+
+      <div class="attyrenow-tryon__preview" hidden>
+        <img class="attyrenow-tryon__preview-img" alt="Your uploaded photo" width="380" height="320">
+      </div>
+
+      <button type="button" class="attyrenow-tryon__generate-btn" disabled>
+        <span class="attyrenow-tryon__generate-icon">✨</span>
+        Try It On Now
+      </button>
+
+      <p class="attyrenow-tryon__lock-note">🔒 Images never stored · AI preview only</p>
+
+      <div class="attyrenow-tryon__result" hidden>
+        <img class="attyrenow-tryon__result-img" alt="Try-on result" width="380" height="320">
+      </div>
+
+      <p class="attyrenow-tryon__status"></p>
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'tryon-widget.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "AttyreNow Try-On",
+  "target": "section",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Product", "autofill": true },
+    { "type": "text", "id": "button_text", "label": "Button text", "default": "Try It On" }
+  ]
+}
+{% endschema %}
