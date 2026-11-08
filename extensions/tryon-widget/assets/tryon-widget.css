@@ -40,7 +40,9 @@
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(17, 17, 17, 0.55);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,110 +54,169 @@
 }
 
 .attyrenow-tryon__body {
-  background: #ffffff;
-  border-radius: 24px;
+  background: linear-gradient(180deg, #f4f4f6 0, #ffffff 150px);
+  border-radius: 28px;
   width: 100%;
-  max-width: 460px;
-  max-height: 90vh;
+  max-width: 480px;
+  max-height: 92vh;
   overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.32);
 }
 
 .attyrenow-tryon__header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  padding: 24px 28px 16px;
+  gap: 16px;
+  padding: 28px 28px 4px;
 }
 
-.attyrenow-tryon__header span {
-  font-size: 22px;
+.attyrenow-tryon__title {
+  display: block;
+  font-size: 26px;
   font-weight: 800;
   color: #111111;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.attyrenow-tryon__subtitle {
+  margin: 6px 0 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #6b7280;
 }
 
 .attyrenow-tryon__close-btn {
-  background: #f3f4f6;
-  border: none;
+  flex-shrink: 0;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 50%;
-  width: 34px;
-  height: 34px;
-  font-size: 18px;
+  width: 36px;
+  height: 36px;
+  font-size: 20px;
   line-height: 1;
   color: #6b7280;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background 0.15s ease;
 }
 
 .attyrenow-tryon__close-btn:hover {
-  background: #e5e7eb;
+  background: #f3f4f6;
 }
 
-.attyrenow-tryon__upload {
+/* ---------- Upload / Take photo cards ---------- */
+.attyrenow-tryon__choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 22px 28px 16px;
+}
+
+.attyrenow-tryon__choices[hidden] {
+  display: none;
+}
+
+.attyrenow-tryon__choices.is-single {
+  grid-template-columns: 1fr;
+}
+
+.attyrenow-tryon__choice {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin: 4px 28px 16px;
-  padding: 36px 20px;
-  background: #f7f7f8;
-  border: 1.5px dashed #d1d5db;
-  border-radius: 16px;
-  cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  gap: 6px;
+  padding: 24px 14px 22px;
+  background: linear-gradient(180deg, #ffffff 0%, #f6f6f8 100%);
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 20px rgba(0, 0, 0, 0.06);
+  font: inherit;
+  color: inherit;
   text-align: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
-.attyrenow-tryon__upload:hover {
-  background: #f0f0f1;
-  border-color: #a1a1aa;
+.attyrenow-tryon__choice:hover {
+  transform: translateY(-2px);
+  border-color: #111111;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
 }
 
-.attyrenow-tryon__upload-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: #eeeeee;
+.attyrenow-tryon__choice:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 2px;
+}
+
+.attyrenow-tryon__choice[hidden] {
+  display: none;
+}
+
+.attyrenow-tryon__choice-icon {
+  width: 54px;
+  height: 54px;
+  margin-bottom: 8px;
+  border-radius: 17px;
+  background: #111111;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
 }
 
-.attyrenow-tryon__upload-title {
-  font-size: 16px;
-  font-weight: 700;
+.attyrenow-tryon__choice-icon svg {
+  width: 25px;
+  height: 25px;
+}
+
+.attyrenow-tryon__choice-title {
+  font-size: 15px;
+  font-weight: 800;
   color: #111111;
 }
 
-.attyrenow-tryon__upload-label {
-  font-size: 13px;
+.attyrenow-tryon__choice-desc {
+  font-size: 12.5px;
+  line-height: 1.4;
   color: #6b7280;
 }
 
+/* ---------- Tips ---------- */
 .attyrenow-tryon__requirements {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
   list-style: none;
-  margin: 0 28px 20px;
+  margin: 0 28px 22px;
   padding: 0;
 }
 
-.attyrenow-tryon__requirements li {
-  font-size: 13px;
-  color: #4b5563;
+.attyrenow-tryon__requirements[hidden] {
+  display: none;
 }
 
+.attyrenow-tryon__requirements li {
+  padding: 6px 12px;
+  background: #f1f1f3;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* ---------- Photo preview ---------- */
 .attyrenow-tryon__preview {
-  margin: 0 28px 16px;
-  border-radius: 14px;
+  position: relative;
+  margin: 22px 28px 16px;
+  border-radius: 20px;
   overflow: hidden;
   border: 1px solid #eee;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .attyrenow-tryon__preview[hidden],
@@ -170,6 +231,32 @@
   height: auto;
   max-height: 360px;
   object-fit: cover;
+}
+
+.attyrenow-tryon__change-btn {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  padding: 8px 14px;
+  background: rgba(17, 17, 17, 0.78);
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.attyrenow-tryon__change-btn:hover {
+  background: rgba(17, 17, 17, 0.92);
+}
+
+@media (max-width: 360px) {
+  .attyrenow-tryon__choices {
+    grid-template-columns: 1fr;
+  }
 }
 
 .attyrenow-tryon__generate-btn {
@@ -223,29 +310,6 @@
   color: #6b7280;
   text-align: center;
   min-height: 16px;
-}
-
-/* ---------- Take photo button ---------- */
-.attyrenow-tryon__camera-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: calc(100% - 56px);
-  margin: 0 28px 16px;
-  padding: 13px;
-  background: #ffffff;
-  color: #111111;
-  border: 1.5px solid #111111;
-  border-radius: 999px;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.15s ease;
-}
-
-.attyrenow-tryon__camera-btn:hover {
-  background: #f3f4f6;
 }
 
 /* ---------- Camera screen ---------- */

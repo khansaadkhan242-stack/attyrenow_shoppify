@@ -8,6 +8,9 @@ function setupWidget(root) {
   const panel = root.querySelector(".attyrenow-tryon__panel");
   const fileInput = root.querySelector(".attyrenow-tryon__file-input");
   const cameraBtn = root.querySelector(".attyrenow-tryon__camera-btn");
+  const choices = root.querySelector(".attyrenow-tryon__choices");
+  const requirements = root.querySelector(".attyrenow-tryon__requirements");
+  const changeBtn = root.querySelector(".attyrenow-tryon__change-btn");
   const preview = root.querySelector(".attyrenow-tryon__preview");
   const previewImg = root.querySelector(".attyrenow-tryon__preview-img");
   const generateBtn = root.querySelector(".attyrenow-tryon__generate-btn");
@@ -34,9 +37,13 @@ function setupWidget(root) {
     if (uploadedFile) {
       previewImg.src = URL.createObjectURL(uploadedFile);
       preview.hidden = false;
+      choices.hidden = true;
+      requirements.hidden = true;
       generateBtn.disabled = false;
     } else {
       preview.hidden = true;
+      choices.hidden = false;
+      requirements.hidden = false;
       generateBtn.disabled = true;
     }
   }
@@ -45,10 +52,25 @@ function setupWidget(root) {
     setPhoto(fileInput.files?.[0] ?? null);
   });
 
-  if (cameraBtn) {
-    cameraBtn.addEventListener("click", () => {
-      openCameraScreen(setPhoto);
+  if (changeBtn) {
+    changeBtn.addEventListener("click", () => {
+      fileInput.value = "";
+      resultBox.hidden = true;
+      status.textContent = "";
+      setPhoto(null);
     });
+  }
+
+  if (cameraBtn) {
+    // No camera support (very old browsers): show only the upload card
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      cameraBtn.hidden = true;
+      choices.classList.add("is-single");
+    } else {
+      cameraBtn.addEventListener("click", () => {
+        openCameraScreen(setPhoto);
+      });
+    }
   }
 
   generateBtn.addEventListener("click", async () => {
